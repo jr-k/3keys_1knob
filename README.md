@@ -42,4 +42,4 @@ pip3 install pyusb
 - A..F are your normal keys: LeftTap, MiddleTap, RightTap, KnobTap, KnobRight, KnobLeft
 - 0xFF are modifiers (like CTRL), each for one normal key (use 0xFF if you don't need modifiers)
 3. `wchisp eeprom write flashdata.bin`
-4. Here is a [list for all modifier hex codes](include/usb_conkbd.h#L31)
+4. Here is a [list for all supported modifier hex codes](include/usb_conkbd.h#L31)
