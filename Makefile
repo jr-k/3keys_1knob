@@ -20,10 +20,9 @@ CODE_SIZE  = 0x3800
 
 # Toolchain
 CC         = sdcc
-OBJCOPY    = objconv
 PACK_HEX   = packihx
-WCHISP    ?= python3.11 tools/chprog.py
-SREC_CAT = srec_cat
+WCHISP    ?= python3 tools/chprog.py
+SREC_CAT   = srec_cat
 
 # Compiler Flags
 CFLAGS  = -mmcs51 --model-small --no-xinit-opt
