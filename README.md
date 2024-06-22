@@ -22,6 +22,12 @@ brew install libusb
 cargo install wchisp --git https://github.com/ch32-rs/wchisp
 ```
 
+
+#### PyUSB (for flashing script)
+```bash
+pip3 install pyusb
+```
+
 ### compile:
 `$ make bin`
 
