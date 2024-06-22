@@ -13,8 +13,8 @@ brew install sdcc
 apt install -y srecord sdcc
 ```
 
-#### Whcisp
-Install whcisp by following this page: https://github.com/ch32-rs/wchisp (rust needed)
+#### Wchisp
+Install wchisp by following this page: https://github.com/ch32-rs/wchisp (rust needed)
 
 ### compile:
 `$ make bin`
