@@ -20,9 +20,9 @@ CODE_SIZE  = 0x3800
 
 # Toolchain
 CC         = sdcc
-OBJCOPY    = objcopy
 PACK_HEX   = packihx
 WCHISP    ?= python3 tools/chprog.py
+SREC_CAT   = srec_cat
 
 # Compiler Flags
 CFLAGS  = -mmcs51 --model-small --no-xinit-opt
@@ -55,7 +55,7 @@ $(TARGET).hex: $(TARGET).ihx
 
 $(TARGET).bin: $(TARGET).ihx
 	@echo "Building $(TARGET).bin ..."
-	@$(OBJCOPY) -I ihex -O binary $(TARGET).ihx $(TARGET).bin
+	@$(SREC_CAT) $(TARGET).ihx -Intel -o $(TARGET).bin -Binary
 	
 flash: $(TARGET).bin size removetemp
 	@echo "Uploading to CH55x ..."
