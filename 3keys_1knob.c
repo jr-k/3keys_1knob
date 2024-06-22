@@ -81,13 +81,32 @@ uint8_t eeprom_read_byte (uint8_t addr){
   return ROM_DATA_L;
 }
 
+__bit is_consumer_key(char key_char) {
+  return (key_char >= 0x30 && key_char <= 0x32) ||  // System control keys
+         (key_char >= 0xE2 && key_char <= 0xEA) ||  // Volume control keys
+         (key_char >= 0xB0 && key_char <= 0xB9) ||  // Media control keys
+         (key_char >= 0x40 && key_char <= 0x48);    // Menu control keys
+}
+
 void KBD_type_with_modifier(char key_char, char modifier) {
   if (modifier != (char)0xFF) {
-    KBD_press(modifier);  // Press on modifier
+    if (is_consumer_key(modifier)) {
+      CON_press(modifier);
+    } else {
+      KBD_press(modifier);
+    }
   }
-  KBD_type(key_char);      // Press on key
+
+  if (key_char != (char)0xFF) {
+    KBD_type(key_char);
+  }
+
   if (modifier != (char)0xFF) {
-    KBD_release(modifier); // Release modifier
+    if (is_consumer_key(modifier)) {
+      CON_release(modifier);
+    } else {
+      KBD_release(modifier);
+    }
   }
 }
 
@@ -102,6 +121,7 @@ void main(void) {
   __bit knobswitchlast = 0;                 // last state of knob switch
   __idata uint8_t i;                        // temp variable
   uint8_t currentKnobKey;                   // current key to be sent by knob
+  uint8_t currentKnobKeyModifier;
 
   // Enter bootloader if key 1 is pressed
   NEO_init();                               // init NeoPixels
@@ -197,19 +217,22 @@ void main(void) {
 
     // Handle knob
     currentKnobKey = 0;                              // clear key variable
+    currentKnobKeyModifier = 0;
     if(!PIN_read(PIN_ENC_A)) {                       // encoder turned ?
       if(PIN_read(PIN_ENC_B)) {
         currentKnobKey = knobclockwise_char;         // clockwise?
+        currentKnobKeyModifier = knobclockwise_modifier;
       }
       else {
         currentKnobKey = knobcounterclockwise_char;  // counter-clockwise?
+        currentKnobKeyModifier = knobcounterclockwise_modifier;
       }
       DLY_ms(10);                                    // debounce
       while(!PIN_read(PIN_ENC_A));                   // wait until next detent
     }
 
     if(currentKnobKey) {
-        KBD_type_with_modifier(currentKnobKey, (currentKnobKey == knobclockwise_char) ? knobclockwise_modifier : knobcounterclockwise_modifier);  // press and release with modifier
+        KBD_type_with_modifier(currentKnobKey, currentKnobKeyModifier);  // press and release with modifier
     }
     else {
       KBD_releaseAll();                              // ... or release last key

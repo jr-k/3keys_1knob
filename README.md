@@ -43,3 +43,13 @@ pip3 install pyusb
 - 0xFF are modifiers (like CTRL), each for one normal key (use 0xFF if you don't need modifiers)
 3. `wchisp eeprom write flashdata.bin`
 4. Here is a [list for all supported modifier hex codes](include/usb_conkbd.h#L31)
+
+### exemple:
+
+Here is a configuration for `CTRL+C`, `CTRL+V`, `CTRL+A`, `Volume Mute`, `Volume Up`, `Volume Down`
+
+#### Windows
+`./tools/keybin.py flashdata.bin c v a 0xFF 0xFF 0xFF 0x80 0x80 0x80 0xe2 0xe9 0xea`
+
+#### MacOS
+`./tools/keybin.py flashdata.bin c v a 0xFF 0xFF 0xFF 0x83 0x83 0x83 0xe2 0xe9 0xea`
