@@ -13,6 +13,9 @@ brew install sdcc
 apt install -y srecord sdcc
 ```
 
+#### Whcisp
+Install whcisp by following this page: https://github.com/ch32-rs/wchisp (rust needed)
+
 ### compile:
 `$ make bin`
 
@@ -22,6 +25,6 @@ apt install -y srecord sdcc
 - `$ make flash`
 
 ### configure keys:
-1. `$ isp55e0 --data-dump flashdata.bin`
+1. `$ wchisp eeprom dump flashdata.bin`
 2. edit first 6 bytes of this binary (3 keys, plus 3 for the knob), and write it back:
-3. `$ isp55e0 --data-flash flashdata.bin`
+3. `$ wchisp eeprom write flashdata.bin`
