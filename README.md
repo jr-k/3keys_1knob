@@ -1,6 +1,18 @@
 # 3keys_1knob
 Custom firmware for a 3-key + rotary encoder macropad (https://hackaday.io/project/189914)
 
+### dependencies
+
+#### MacOS
+```bash
+brew install srecord
+brew install sdcc
+```
+#### Debian
+```bash
+apt install -y srecord sdcc
+```
+
 ### compile:
 `$ make bin`
 
