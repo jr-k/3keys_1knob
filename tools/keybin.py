@@ -2,51 +2,51 @@
 import sys
 
 def replace_chars_in_bin_file(bin_file_path, values):
-    if len(values) != 6:
-        raise ValueError("Exactly 6 characters or hex values are required.")
+    if len(values) != 12:
+        raise ValueError("Exactly 12 characters or hex values are required.")
     
     hex_values = []
     for value in values:
         if value.startswith("0x"):
-            # Si la valeur commence par "0x", on suppose que c'est une valeur hexadécimale
+            # If the value starts with "0x", it is assumed to be a hexadecimal value
             hex_value = value[2:]
             if len(hex_value) != 2:
                 raise ValueError(f"Invalid hex value: {value}")
         else:
-            # Sinon, c'est un caractère ASCII, on le convertit en hexadécimal
+            # Otherwise, it is an ASCII character, convert it to hexadecimal
             hex_value = format(ord(value), '02x')
         
         hex_values.append(hex_value)
 
     with open(bin_file_path, 'rb+') as bin_file:
-        # Lire le contenu existant du fichier
+        # Read the existing content of the file
         content = bin_file.read()
         
-        # Convertir le contenu en une liste modifiable de valeurs hexadécimales
+        # Convert the content to a modifiable list of hexadecimal values
         content_hex = content.hex()
         content_hex_list = [content_hex[i:i+2] for i in range(0, len(content_hex), 2)]
         
-        # Remplacer les 6 premiers octets par les nouvelles valeurs hexadécimales
-        for i in range(6):
+        # Replace the first 12 bytes with the new hexadecimal values
+        for i in range(12):
             content_hex_list[i] = hex_values[i]
         
-        # Reconvertir la liste de valeurs hexadécimales en une chaîne de caractères
+        # Reconvert the list of hexadecimal values into a string
         new_content_hex = ''.join(content_hex_list)
         
-        # Reconvertir la chaîne de caractères hexadécimaux en bytes
+        # Reconvert the hexadecimal string into bytes
         new_content = bytes.fromhex(new_content_hex)
         
-        # Écrire le nouveau contenu dans le fichier en écrasant le contenu existant
+        # Write the new content into the file, overwriting the existing content
         bin_file.seek(0)
         bin_file.write(new_content)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 8:
-        print("Usage: python script.py <bin_file_path> <value1> <value2> <value3> <value4> <value5> <value6>")
+    if len(sys.argv) != 14:
+        print("Usage: python script.py <bin_file_path> <value1> <value2> <value3> <value4> <value5> <value6> <modifier1> <modifier2> <modifier3> <modifier4> <modifier5> <modifier6>")
         sys.exit(1)
 
     bin_file_path = sys.argv[1]
-    values = sys.argv[2:8]
+    values = sys.argv[2:14]
 
     replace_chars_in_bin_file(bin_file_path, values)
     print("Success: Bin file has been updated with new ascii characters.")

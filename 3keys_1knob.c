@@ -81,6 +81,16 @@ uint8_t eeprom_read_byte (uint8_t addr){
   return ROM_DATA_L;
 }
 
+void KBD_type_with_modifier(char key_char, char modifier) {
+  if (modifier != (char)0xFF) {
+    KBD_press(modifier);  // Press on modifier
+  }
+  KBD_type(key_char);      // Press on key
+  if (modifier != (char)0xFF) {
+    KBD_release(modifier); // Release modifier
+  }
+}
+
 // ===================================================================================
 // Main Function
 // ===================================================================================
@@ -115,6 +125,13 @@ void main(void) {
   char knobclockwise_char = (char)eeprom_read_byte(4);
   char knobcounterclockwise_char = (char)eeprom_read_byte(5);
 
+  char key1_modifier = (char)eeprom_read_byte(6);
+  char key2_modifier = (char)eeprom_read_byte(7);
+  char key3_modifier = (char)eeprom_read_byte(8);
+  char knobsw_modifier = (char)eeprom_read_byte(9);
+  char knobclockwise_modifier = (char)eeprom_read_byte(10);
+  char knobcounterclockwise_modifier = (char)eeprom_read_byte(11);
+
   // Loop
   while(1) {
     // Handle key 1
@@ -123,7 +140,7 @@ void main(void) {
       if(key1last) {                        // key was pressed?
         neo1 = 127;                         // light up corresponding NeoPixel
         NEO_update();                       // update NeoPixels NOW!
-        KBD_type(key1_char);                // press and release
+        KBD_type_with_modifier(key1_char, key1_modifier); // press and release
       }
       else {                                // key was released?
                                             // nothing to do in this case
@@ -139,7 +156,7 @@ void main(void) {
       if(key2last) {                        // key was pressed?
         neo2 = 127;                         // light up corresponding NeoPixel
         NEO_update();                       // update NeoPixels NOW!
-        KBD_type(key2_char);                // press and release
+        KBD_type_with_modifier(key2_char, key2_modifier); // press and release
       }
       else {                                // key was released?
                                             // nothing to do in this case
@@ -155,7 +172,7 @@ void main(void) {
       if(key3last) {                        // key was pressed?
         neo3 = 127;                         // light up corresponding NeoPixel
         NEO_update();                       // update NeoPixels NOW!
-        KBD_type(key3_char);                // press and release
+        KBD_type_with_modifier(key3_char, key3_modifier); // press and release
       }
       else {                                // key was released?
                                             // nothing to do in this case
@@ -170,7 +187,7 @@ void main(void) {
       knobswitchlast = !knobswitchlast;
       if(knobswitchlast) {
         NEO_update();
-        KBD_type(knobsw_char);
+        KBD_type_with_modifier(knobsw_char, knobsw_modifier);
       }
       else {
       }
@@ -192,7 +209,7 @@ void main(void) {
     }
 
     if(currentKnobKey) {
-      KBD_press(currentKnobKey);                     // press corresponding key ...
+        KBD_type_with_modifier(currentKnobKey, (currentKnobKey == knobclockwise_char) ? knobclockwise_modifier : knobcounterclockwise_modifier);  // press and release with modifier
     }
     else {
       KBD_releaseAll();                              // ... or release last key

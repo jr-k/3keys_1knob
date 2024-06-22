@@ -31,8 +31,8 @@ uint8_t KBD_getState(void);           // get keyboard status LEDs
 // Modifier keys
 #define KBD_KEY_LEFT_CTRL   0x80
 #define KBD_KEY_LEFT_SHIFT  0x81
-#define KBD_KEY_LEFT_ALT    0x82
-#define KBD_KEY_LEFT_GUI    0x83
+#define KBD_KEY_LEFT_ALT    0x82 // option for macos
+#define KBD_KEY_LEFT_GUI    0x83 // command for macos
 #define KBD_KEY_RIGHT_CTRL  0x84
 #define KBD_KEY_RIGHT_SHIFT 0x85
 #define KBD_KEY_RIGHT_ALT   0x86
