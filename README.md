@@ -38,5 +38,5 @@ pip3 install pyusb
 
 ### configure keys:
 1. `wchisp eeprom dump flashdata.bin`
-2. `./tools/keybin.py flashdata.bin A B C D E F` (A..F are your 6 keys: LeftTap, MiddleTap, RightTap, KnobTap, KnobRight, KnobLeft)
+2. `./tools/keybin.py flashdata.bin A B C D E F` (A..F are your 6 keys: LeftTap, MiddleTap, RightTap, KnobTap, KnobRight, KnobLeft; you can also use hex values with 0x..)
 3. `wchisp eeprom write flashdata.bin`
