@@ -33,10 +33,10 @@ pip3 install pyusb
 
 ### compile & flash to pad:
 - if on original firmware: connect P1.5 to GND and connect USB (or P3.6 to 3v3 if using ch55xduino)
-- if on this firmware: press key1 while connecting USB (last key opposite from knob)
+- if on this firmware: press key1 while connecting USB (key opposite from knob)
 - `make flash`
 
 ### configure keys:
 1. `wchisp eeprom dump flashdata.bin`
-2. `./tools/keybin.py flashdata.bin A B C D E F` (A..F are your 6 keys: RightTap, MiddleTap, LeftTap, KnobTap, KnobRight, KnobLeft)
+2. `./tools/keybin.py flashdata.bin A B C D E F` (A..F are your 6 keys: LeftTap, MiddleTap, RightTap, KnobTap, KnobRight, KnobLeft)
 3. `wchisp eeprom write flashdata.bin`
