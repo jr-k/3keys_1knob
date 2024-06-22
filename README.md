@@ -15,6 +15,12 @@ apt install -y srecord sdcc
 
 #### Wchisp
 Install wchisp by following this page: https://github.com/ch32-rs/wchisp (rust needed)
+```bash
+# tldr; (for macos)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+brew install libusb
+cargo install wchisp --git https://github.com/ch32-rs/wchisp
+```
 
 ### compile:
 `$ make bin`
