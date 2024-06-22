@@ -21,7 +21,7 @@ CODE_SIZE  = 0x3800
 # Toolchain
 CC         = sdcc
 PACK_HEX   = packihx
-WCHISP    ?= python3 tools/chprog.py
+WCHISP    ?= python3.11 tools/chprog.py
 SREC_CAT   = srec_cat
 
 # Compiler Flags
